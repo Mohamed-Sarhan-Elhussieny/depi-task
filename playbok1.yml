@@ -1,0 +1,32 @@
+- name: Update nginx configuration and html
+  hosts: all
+  become: true
+  tasks:
+    - name: install nginx
+      apt:
+        name: nginx
+      notify: start nginx  
+    - name: change in conf and html
+      template:
+       src: /usr/share/nginx/html/index.html.j2
+       dest: /usr/share/nginx/html/index.html
+       owner: root
+       group: root
+       mode: "0644"
+      notify: reload nginx
+
+
+
+  handlers:
+    - name: start nginx
+      service:
+        state: started
+        name: nginx
+    - name: reload nginx
+      service:
+        state: reloaded
+        name: nginx
+  vars:
+    intro_text: "hallo from playbook to apply jinja"
+    end_text: "enddddddddddddddd"
+  
