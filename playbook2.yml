@@ -1,0 +1,23 @@
+- name: Update nginx configuration and html
+  hosts: all
+  become: true
+  tasks:
+   - name: Install MySQL
+     apt:
+        name: mysql-server
+        state: present
+
+   - name: start db
+     service:
+        name: mysql
+        state: started
+        enabled: true
+
+   - name: Create DB user
+     community.mysql.mysql_user:
+        name: myapp
+        password: "{{ password }}"
+        state: present
+        
+  vars_files:
+    - passdb.yml
