@@ -6,7 +6,12 @@
 - عمل Service من النوع ClusterIP عشان نقدر نوصله من باقي الـ Pods.
 - عمل Curl على Pod IP و ClusterIP عشان نتأكد إنه شغال.
 
+
 ## الملفات
-- `configmap.yaml` → فيه إعدادات الـ nginx (listen 82 + index.html).
-- `pod.yaml` → تعريف البود وربطه بالـ configmap.
-- `service.yaml` → ClusterIP Service يوجّه الترافيك للـ Pod على بورت 82.
+- **map-index.yaml** → configmap يعدل إعدادات Nginx عشان يشتغل على port 82.
+- **index.yaml** → configmap للـ index.html (محتوى Welcome).
+- **pod.yaml** → Pod يشغل Nginx ويربط الـ volumes مع الـ configmaps.
+- **clusterip.yaml** → Service من النوع ClusterIP على port 82.
+- **pod2.yaml** → Pod Nginx تاني للتست ونعمل curl منه على PodIP و ClusterIP.
+
+---
