@@ -1,0 +1,34 @@
+#sudo sh -c "echo -n 'sarhan:' > /etc/nginx/conf.d/.htpasswd"
+#sudo sh -c "openssl  passwd -apr1 >> /etc/nginx/conf.d/.htpasswd"
+
+
+server {
+        listen 80 default_server;
+        return 301 https://localhost;
+}
+
+
+server {
+    listen 443 ssl;
+    server_name _;
+    #root /var/www/html;
+    root /usr/share/nginx/html;
+          index  index.html;
+         ssl_certificate /etc/ssl/localhost.pem;
+         ssl_certificate_key  /etc/ssl/localhost-key.pem;
+
+
+    location / {
+        auth_basic "Restricted Access";                               ##############
+        auth_basic_user_file /etc/nginx/conf.d/.htpasswd;            ################
+    }
+}
+
+
+~                                                                          
+~                                                                          
+~                                                                          
+~                                                                          
+~                                                                          
+~                                                                          
+~     
