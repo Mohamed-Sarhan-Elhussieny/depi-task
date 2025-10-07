@@ -1,0 +1,30 @@
+https://www.ibm.com/docs/en/api-connect/10.0.x_cd?topic=profile-using-openssl-generate-format-certificates
+
+#sudo openssl req -newkey rsa:2048 -nodes -keyout private_key.pem -x509 -days 365 -out public_certificate.pem
+==> command to generate private "private_key.pem" and certificate " public_certificate.pem " in /etc
+
+server {
+        listen 80 default_server;
+        return 301 https://localhost;
+}
+
+
+
+server {
+    listen 443 ssl default_server;
+    listen [::]:443 ssl default_server;
+
+    server_name localhost;
+    root /usr/share/nginx/html;
+
+    ssl_certificate     /etc/public_certificate.pem;
+    ssl_certificate_key /etc/private_key.pem;
+
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+
+~     
