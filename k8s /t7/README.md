@@ -1,0 +1,2 @@
+Make SSL FOR U nginx to make it HTTPS
+MAKE USER AND PASSWD FOR ADMIN PAGE 
